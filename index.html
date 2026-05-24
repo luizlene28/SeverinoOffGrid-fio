@@ -1,8 +1,8 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" conten<!t="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Severino Off-Grid | Calculadora de Bitola 3D</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -33,7 +33,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             overflow-x: hidden;
         }
 
@@ -45,8 +45,8 @@
             border: 1px solid var(--card-border);
             border-radius: 24px;
             padding: 28px 24px 20px;
-            max-width: 430px;
             width: 100%;
+            max-width: 500px;
             box-shadow: var(--card-shadow);
             animation: fadeInUp 0.7s ease-out;
         }
@@ -66,11 +66,11 @@
         .header-left { display: flex; align-items: center; gap: 10px; flex: 1; }
         .header-icon { font-size: 2rem; filter: drop-shadow(0 3px 8px rgba(247, 147, 30, 0.5)); }
         .header-title {
-            font-size: 1.25rem; font-weight: 800;
+            font-size: 1.35rem; font-weight: 800;
             background: linear-gradient(135deg, #ffb347, #f7931e);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .header-subtitle { font-size: 0.7rem; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; }
+        .header-subtitle { font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; }
 
         .cubo-wrapper { perspective: 500px; width: var(--cubo-size); height: var(--cubo-size); cursor: pointer; }
         .cubo-inner {
@@ -87,18 +87,18 @@
         .cubo-face.baixo { background: #5c2d06; transform: rotateX(-90deg) translateZ(calc(var(--cubo-size) / 2)); }
 
         .input-group { margin-bottom: 14px; position: relative; }
-        .input-group label { display: block; font-weight: 600; font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase; }
+        .input-group label { display: block; font-weight: 600; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; }
         .input-group input {
-            width: 100%; padding: 13px 14px; background: var(--input-bg); border: 1.5px solid var(--input-border);
-            border-radius: 12px; color: #f0f0f8; font-size: 1rem; outline: none; transition: 0.3s;
+            width: 100%; padding: 14px 16px; background: var(--input-bg); border: 1.5px solid var(--input-border);
+            border-radius: 12px; color: #f0f0f8; font-size: 1.05rem; outline: none; transition: 0.3s;
         }
         .input-group input:focus { border-color: var(--input-focus-border); background: rgba(255,255,255,0.07); }
-        .input-icon-hint { position: absolute; right: 14px; top: 34px; font-size: 0.8rem; color: rgba(255,255,255,0.2); }
+        .input-icon-hint { position: absolute; right: 16px; top: 38px; font-size: 0.9rem; color: rgba(255,255,255,0.2); }
 
         button {
-            width: 100%; padding: 16px; background: var(--btn-gradient); color: #fff; border: none;
-            border-radius: 14px; font-size: 1.05rem; font-weight: 700; cursor: pointer;
-            box-shadow: var(--btn-shadow); text-transform: uppercase; margin-top: 6px; transition: 0.2s;
+            width: 100%; padding: 18px; background: var(--btn-gradient); color: #fff; border: none;
+            border-radius: 14px; font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            box-shadow: var(--btn-shadow); text-transform: uppercase; margin-top: 10px; transition: 0.2s;
         }
         button:active { transform: translateY(2px); }
 
@@ -112,15 +112,22 @@
         .critico { background: rgba(255, 77, 90, 0.1); color: #ff4d5a; border: 1px solid rgba(255,77,90,0.3); }
 
         .alerta-didatico {
-            margin-top: 15px; padding: 8px 12px; font-size: 0.62rem; color: rgba(255, 255, 255, 0.4);
-            text-align: center; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; line-height: 1.3;
+            margin-top: 18px; padding: 10px 14px; font-size: 0.7rem; color: rgba(255, 255, 255, 0.4);
+            text-align: center; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; line-height: 1.4;
         }
 
-        .aviso-norma { font-size: 0.65rem; color: rgba(255,255,255,0.2); text-align: center; margin-top: 12px; font-weight: 500; }
+        .aviso-norma { font-size: 0.7rem; color: rgba(255,255,255,0.2); text-align: center; margin-top: 14px; font-weight: 500; }
 
+        /* Ajuste para esticar e responder perfeitamente em telas de celulares */
         @media (max-width: 480px) {
-            .container { padding: 20px 16px; }
+            body { padding: 10px; }
+            .container { 
+                padding: 24px 18px 16px; 
+                width: 96vw; /* Ocupa quase toda a largura física da tela */
+            }
             .cubo-wrapper { width: var(--cubo-size-mobile); height: var(--cubo-size-mobile); }
+            .input-group input { padding: 12px 14px; font-size: 1rem; }
+            .input-icon-hint { top: 34px; right: 14px; }
         }
     </style>
 </head>
@@ -193,11 +200,9 @@
                 return;
             }
 
-            // Cálculo da Queda de Tensão (Considerando Ida e Volta para DC/Monofásico)
             const quedaV = (2 * L * I * 0.0172) / S;
             const quedaP = (quedaV / V) * 100;
             
-            // Lógica de Status (Rigorosa para Off-Grid)
             let status = quedaP <= 2 ? 'excelente' : quedaP <= 4 ? 'aceitavel' : 'critico';
             let label = quedaP <= 2 ? 'EXCELENTE' : quedaP <= 4 ? 'ACEITÁVEL' : 'CRÍTICO';
 
@@ -207,7 +212,6 @@
             res.style.display = 'block';
         }
 
-        // Efeito ao clicar no cubo
         document.getElementById('cuboInner').parentElement.onclick = function() {
             const inner = this.children[0];
             inner.style.animationDuration = '0.8s';
