@@ -155,22 +155,22 @@
 
         <div class="input-group">
             <label>⚡ Tensão (V)</label>
-            <input type="number" id="tensao" placeholder="Ex: 12, 24, 127, 220" autocomplete="no-password-suggestion" name="calc_v_field_random" inputmode="numeric">
+            <input type="text" id="tensao" placeholder="Ex: 12, 24, 127, 220" autocomplete="off" name="v_random_nocache" inputmode="numeric">
             <span class="input-icon-hint">V</span>
         </div>
         <div class="input-group">
             <label>🔌 Corrente (A)</label>
-            <input type="number" id="corrente" placeholder="Ex: 30" autocomplete="no-password-suggestion" name="calc_a_field_random" inputmode="numeric">
+            <input type="text" id="corrente" placeholder="Ex: 30" autocomplete="off" name="a_random_nocache" inputmode="numeric">
             <span class="input-icon-hint">A</span>
         </div>
         <div class="input-group">
             <label>📏 Distância do Cabo (m)</label>
-            <input type="number" id="distancia" placeholder="Ex: 10" autocomplete="no-password-suggestion" name="calc_m_field_random" inputmode="numeric">
+            <input type="text" id="distancia" placeholder="Ex: 10" autocomplete="off" name="m_random_nocache" inputmode="numeric">
             <span class="input-icon-hint">m</span>
         </div>
         <div class="input-group">
             <label>🪢 Bitola do Fio (mm²)</label>
-            <input type="number" id="bitola" placeholder="Ex: 6, 10, 16" autocomplete="no-password-suggestion" name="calc_s_field_random" inputmode="numeric">
+            <input type="text" id="bitola" placeholder="Ex: 6, 10, 16" autocomplete="off" name="s_random_nocache" inputmode="numeric">
             <span class="input-icon-hint">mm²</span>
         </div>
 
@@ -188,14 +188,15 @@
 
     <script>
         function calcular() {
-            const V = parseFloat(document.getElementById('tensao').value);
-            const I = parseFloat(document.getElementById('corrente').value);
-            const L = parseFloat(document.getElementById('distancia').value);
-            const S = parseFloat(document.getElementById('bitola').value);
+            // Trocado para aceitar vírgula ou ponto que o usuário digitar no teclado
+            const V = parseFloat(document.getElementById('tensao').value.replace(',', '.'));
+            const I = parseFloat(document.getElementById('corrente').value.replace(',', '.'));
+            const L = parseFloat(document.getElementById('distancia').value.replace(',', '.'));
+            const S = parseFloat(document.getElementById('bitola').value.replace(',', '.'));
             const res = document.getElementById('resultado');
 
-            if (!V || !I || !L || !S) {
-                alert("Por favor, preencha todos os campos.");
+            if (isNaN(V) || isNaN(I) || isNaN(L) || isNaN(S)) {
+                alert("Por favor, preencha todos os campos numericamente.");
                 return;
             }
 
